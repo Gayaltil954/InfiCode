@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailJS Setup Guide - InfiCode Solution</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #6366f1; }
+        h2 { color: #333; margin-top: 30px; }
+        .step {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #6366f1;
+            border-radius: 4px;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .success {
+            background: #d1e7dd;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        a {
+            color: #6366f1;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 EmailJS Setup Guide</h1>
+        <p>Follow these steps to configure EmailJS for your InfiCode Solution website's contact form.</p>
+
+        <div class="step">
+            <h2>Step 1: Create EmailJS Account</h2>
+            <ol>
+                <li>Go to <a href="https://www.emailjs.com/" target="_blank">EmailJS.com</a></li>
+                <li>Click "Sign Up" and create a free account</li>
+                <li>Verify your email address</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h2>Step 2: Add Email Service</h2>
+            <ol>
+                <li>Log in to your EmailJS dashboard</li>
+                <li>Click "Email Services" in the left sidebar</li>
+                <li>Click "Add New Service"</li>
+                <li>Choose your email provider (Gmail, Outlook, etc.)</li>
+                <li>Follow the connection instructions</li>
+                <li>Copy the <strong>Service ID</strong> (e.g., service_xxxxxxx)</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h2>Step 3: Create Email Template</h2>
+            <ol>
+                <li>Click "Email Templates" in the left sidebar</li>
+                <li>Click "Create New Template"</li>
+                <li>Use the following template structure:</li>
+            </ol>
+            
+            <p><strong>Subject:</strong></p>
+            <pre>New Contact Form Submission: {{subject}}</pre>
+            
+            <p><strong>Content:</strong></p>
+            <pre>
+Hello {{to_name}},
+
+You have received a new message from your website contact form.
+
+Name: {{from_name}}
+Email: {{from_email}}
+Subject: {{subject}}
+
+Message:
+{{message}}
+
+---
+This email was sent from your InfiCode Solution website contact form.
+            </pre>
+            
+            <ol start="4">
+                <li>Save the template</li>
+                <li>Copy the <strong>Template ID</strong> (e.g., template_xxxxxxx)</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h2>Step 4: Get Public Key</h2>
+            <ol>
+                <li>Click "Account" in the left sidebar</li>
+                <li>Find the "Public Key" section</li>
+                <li>Copy your <strong>Public Key</strong> (e.g., xxxxxxxxxxxxx)</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h2>Step 5: Update Configuration</h2>
+            <p>Open <code>src/config.ts</code> and update the EmailJS configuration:</p>
+            <pre>
+export const CONFIG = {
+  emailJS: {
+    serviceId: 'service_xxxxxxx',    // Your Service ID
+    templateId: 'template_xxxxxxx',   // Your Template ID
+    publicKey: 'xxxxxxxxxxxxx'        // Your Public Key
+  },
+  // ... rest of config
+}
+            </pre>
+        </div>
+
+        <div class="warning">
+            <h3>⚠️ Important Notes:</h3>
+            <ul>
+                <li>Free EmailJS accounts have a limit of 200 emails per month</li>
+                <li>Make sure to verify your email service connection</li>
+                <li>Test the contact form after configuration</li>
+                <li>Keep your Public Key secure (don't share it publicly)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>Step 6: Test Your Setup</h2>
+            <ol>
+                <li>Build your TypeScript files: <code>npm run build</code></li>
+                <li>Open <code>index.html</code> in a browser</li>
+                <li>Navigate to the Contact section</li>
+                <li>Fill out and submit the form</li>
+                <li>Check your email inbox for the message</li>
+            </ol>
+        </div>
+
+        <div class="success">
+            <h3>✅ Troubleshooting:</h3>
+            <ul>
+                <li><strong>Form not submitting:</strong> Check browser console for errors</li>
+                <li><strong>No email received:</strong> Verify Service ID, Template ID, and Public Key</li>
+                <li><strong>Error 400:</strong> Check template variable names match exactly</li>
+                <li><strong>Error 403:</strong> Verify your Public Key is correct</li>
+            </ul>
+        </div>
+
+        <h2>📱 WhatsApp Setup</h2>
+        <p>To configure WhatsApp integration:</p>
+        <ol>
+            <li>Open <code>src/config.ts</code></li>
+            <li>Update the WhatsApp phone number (include country code, no + or spaces):</li>
+        </ol>
+        <pre>
+whatsApp: {
+  phoneNumber: '1234567890',  // Replace with your number
+  defaultMessage: 'Hello InfiCode Solution, I would like to discuss a project.'
+}
+        </pre>
+        <p><strong>Example:</strong> For US number +94 741542747, use: <code>94741542747</code></p>
+
+        <div class="success">
+            <h3>🎉 You're All Set!</h3>
+            <p>Your contact form and WhatsApp integration should now be working. If you need help, refer to the README.md file or EmailJS documentation.</p>
+        </div>
+    </div>
+</body>
+</html>

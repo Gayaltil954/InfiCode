@@ -1,0 +1,16 @@
+{
+  "name": "inficode-solution",
+  "version": "1.0.0",
+  "description": "Modern company website for InfiCode Solution",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.3.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
