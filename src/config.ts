@@ -14,7 +14,7 @@ export const CONFIG = {
 
   // WhatsApp Configuration
   whatsApp: {
-    phoneNumber: '1234567890',         // Replace with your WhatsApp number (include country code, no + or spaces)
+    phoneNumber: '94741542747',         // Replace with your WhatsApp number (include country code, no + or spaces)
     defaultMessage: 'Hello InfiCode Solution, I would like to discuss a project.'
   },
 
